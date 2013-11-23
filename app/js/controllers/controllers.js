@@ -2,15 +2,29 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-  controller('LoginCtrl', ['$scope', '$location', 'Utils', 'Api', function(scope, location, Utils, Api) {
+angular.module('myApp.controllers', ['LocalStorageModule']).
+  controller('LoginCtrl', ['$scope', '$location', 'Utils', 'localStorageService', 'Api', function(scope, location, Utils, session, Api) {
   	console.log('loaded loginCtrl');
   
-    //set code  	
-    if(! Utils.isEmpty(location.search().code) ) Api.setCode(location.search().code);
-
-
   }])
+
+  /* Callback Controller */
+  .controller('CallbackCtrl', ['$scope', '$timeout', 'localStorageService', 'Utils', 'Api', function(scope, timeout, session, Utils, Api) {
+  	//set code  	
+    if(! Utils.isEmpty(location.search().code) ) {
+    	Api.setCode(location.search().code);
+
+    	//get session organization
+    	var orgId = session.get('id');
+
+    	timeout(function() {
+    		location.path('/organization/' + orgId);
+    		//after successful redirect delete session orgId
+    		session.clearAll();
+    	}, 1000)
+    }
+  }])
+
   /* Organization Controller*/
   .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', function(scope, Api, routeParams) {
 
@@ -37,7 +51,7 @@ angular.module('myApp.controllers', []).
 
   }])
   /* Facebook Controller */
-  .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api' ,function (scope, FB, window, location, Api) {
+  .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api', 'Utils' ,function (scope, FB, window, location, Api, Utils) {
   
     updateLoginStatus(updateApiMe);
     // console.log(FB);
@@ -59,10 +73,7 @@ angular.module('myApp.controllers', []).
     };
 
     scope.$watch("loginStatus", function(val) {
-      // console.log(val)
       scope.loginStatusJSON = val;
-      //set Facebook token
-      console.log(val);
     }, true);
 
     scope.$watch("apiMe", function(val) {
@@ -88,6 +99,7 @@ angular.module('myApp.controllers', []).
     function updateLoginStatus (more) {
       FB.getLoginStatus(function (res) {
         scope.loginStatus = res;
+        if( Utils.isEmpty(res.authResponse) ) return false;
         //set Fb token
         Api.setFbToken(res.authResponse.accessToken);
         //HTTP post
