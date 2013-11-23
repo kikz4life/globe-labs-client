@@ -9,7 +9,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
 
   /* Callback Controller */
-  .controller('CallbackCtrl', ['$scope', '$timeout', 'localStorageService', function(scope, timeout, session) {
+  .controller('CallbackCtrl', ['$scope', '$timeout', 'localStorageService', 'Utils', 'Api', function(scope, timeout, session, Utils, Api) {
   	//set code  	
     if(! Utils.isEmpty(location.search().code) ) {
     	Api.setCode(location.search().code);
