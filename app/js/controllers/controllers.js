@@ -20,7 +20,8 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   	//set code  	
     if(! Utils.isEmpty(location.search().code) ) {
     	Api.setCode(location.search().code);
-    	// session.add("id", "09e9f116652cdcb4c99cb397fa4a628e");
+      //add code
+    	session.add("id", location.search().code);
     	//get session organization
     	var orgId = session.get('id');
     	var code = Api.getCode();
