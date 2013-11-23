@@ -94,6 +94,20 @@ angular.module('myApp.servicesApi', ['LocalStorageModule'])
           data    : xsrf,
           headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
         });
+      },
+      postCharges: function(user_id, org_id, amt) {//, benif_id
+        var xsrf = $.param({
+          user_id: user_id,
+          organization_id : org_id,
+          // benificiary_id : benif_id,
+          amount : amt
+        });
+        return $http({
+          method  : 'POST',
+          url     : api + '/donate/v1/charge/',
+          data    : xsrf,
+          headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
+        });
       }
     };
   });

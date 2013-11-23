@@ -7,12 +7,14 @@
 					<th>Organization</th>				
 					<th>Start Date</th>
 					<th>Next Charge Date</th>
+					<th>Amount</th>
 					<th>Action</th>
 				</tr>
 				<tr ng-repeat="item in datas | filter: search">
 					<td>{{item.name}}</td>
 					<td>{{item.start_date}}</td>
 					<td>{{item.next_charge_date}}</td>
+					<td>{{item.amount}}</td>
 					<td>
 						<a ng-click="deleteItem($index, item.id)"><i class="fa fa-trash-o fa-2x"></i></a>
 						<!-- <a><i class="fa fa-edit fa-2x"></i></a> -->

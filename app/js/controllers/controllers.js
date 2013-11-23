@@ -3,10 +3,14 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['LocalStorageModule']).
-  controller('LoginCtrl', ['$scope', '$location', 'Utils', 'localStorageService', 'Api', function(scope, location, Utils, session, Api) {
-  	console.log('loaded loginCtrl');
+  controller('HomeCtrl', ['$scope', '$location', 'Utils', 'localStorageService', 'Api', function(scope, location, Utils, session, Api) {
+    console.log('loaded homeCtrl');
 
-    // scope.showBanner = false;
+  }])
+
+
+  .controller('LoginCtrl', ['$scope', '$location', 'Utils', 'localStorageService', 'Api', function(scope, location, Utils, session, Api) {
+  	console.log('loaded loginCtrl');
 
   }])
 
@@ -40,14 +44,17 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
 
   /* Organization Controller*/
-  .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', 'localStorageService', 'Utils', function(scope, Api, routeParams, session, Utils) {
-    scope.showBanner = true;
-  	var creds = Api.getUserCredentials();
-  	var code = Api.getCode();
+  .controller('OrganizationCtrl', ['$scope', '$rootScope', 'Api', '$routeParams', 'localStorageService', 'Utils', function(scope, rootScope, Api, routeParams, session, Utils) {
+    var creds = Api.getUserCredentials();
+    var code = Api.getCode();
 
+    scope.showBanner = true;
     scope.orgDetail = {};
     scope.params = routeParams;
     scope.hasGlobeAccessToken = (Utils.isEmpty(creds)) ? "" : creds.user.has_globe_access_token;
+    scope.isLoggedIn = (Utils.isEmpty(creds)) ? false : true;
+    scope.tarrif_rate = 0;
+    console.log(scope.isLoggedIn);
 
     Api.getListOrganization().then(function(result) {
       console.log(result.data);
@@ -60,32 +67,65 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
       Api.getOrgDetail(orgID).then(function(result) {
         console.log(result.data);
         scope.orgDetail = result.data.result;
-
-        if(! scope.hasGlobeAccessToken) {
+        console.log(scope.hasGlobeAccessToken);
+        if(!scope.isLoggedIn) return false;
+        if(eval(scope.hasGlobeAccessToken) != 1) {
+          console.log('if');
 	        Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
-				console.log(result);
-			}, function(result) {
-				console.log(result);
-			});
+    				console.log(result);
+    			}, function(result) {
+    				console.log(result);
+    			});
         }else {
-        	scope_globeAccessToken = creds.user.globe_access_token;
+          console.log('else');
+        	scope.globeAccessToken = creds.user.globe_access_token;
         }
         
       }, function(result) {
         console.log(result.data);
       });
     };
+        
+    scope.donateNow = function() {
+      var user_id = creds.user.id;
+      var org_id = scope.params.orgId;
+      // var benif_id = ;
+      var amt = scope.tarrif_rate;
 
+      Api.postCharges(user_id, org_id, amt).then(function(result){
+        console.log(result.data);
+        rootScope.$broadcast("event:donated", amt);
+        
+      }, function(result) {
+        console.log(result.data);
+        scope.showError = true;
+        scope.data = 'Warning! '+result.data.message;
+      })
+    };
+
+    scope.$on("event:donated", function(event, newValue, oldValue) {
+      console.log(scope.orgDetail);
+      scope.getDetail(scope.params.orgId);
+    })
 
 
     scope.storeOrgId = function(id) {
-    	console.log(id);
-		session.add("id", id);
+      console.log(id);
+      session.add("id", id);
     };
 
+    scope.$on("event:loggedOut", function() {
+      console.log('boom');
+      scope.isLoggedIn = false;
+    });
+
+    scope.$on("event:loggedIn", function() {
+      console.log('boom');
+      scope.isLoggedIn = true;
+    });
   }])
   /* Facebook Controller */
-  .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api', 'Utils', 'localStorageService' ,function (scope, FB, window, location, Api, Utils, session) {
+  .controller('FacebookCtrl', ['$scope', '$rootScope', '$FB', '$window', '$location', 'Api', 'Utils', 'localStorageService' ,function (scope, rootScope, FB, window, location, Api, Utils, session) {
     
     updateLoginStatus(updateApiMe);
     // console.log(FB);
@@ -104,6 +144,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
       FB.logout(function () {
         updateLoginStatus(updateApiMe);
         session.clearAll();
+        rootScope.$broadcast("event:loggedOut");
       });
     };
 
@@ -143,6 +184,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
           console.log(result);
           scope.apiMe = result.data;
           session.add("userCreds", scope.apiMe.result);
+          rootScope.$broadcast("event:loggedIn");
         }, function(result) {
           console.log(result);
         });

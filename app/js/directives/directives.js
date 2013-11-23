@@ -27,4 +27,20 @@ angular.module('myApp.directives', ['LocalStorageModule'])
         });
       }
     }
+  })
+  .directive('globalMessage', function() {
+    return {
+      restrict : 'A',
+      template : '<div>' +
+                    '<div class="alert alert-success">' +
+                      '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
+                      '{{data}}' +
+                    '</div>' +
+                  '</div>',
+      link: function(scope, element, attrs) {
+        if(attrs.globalMessage == 'error') {
+          element.find('.alert-success').addClass('alert-danger');
+        }
+      }
+    }
   });

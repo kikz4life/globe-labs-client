@@ -1,4 +1,5 @@
 <div class="main-wrap" ng-controller="OrganizationCtrl">
+	<div global-message="error" ng-show="showError"></div>
 	<div ng-init="getDetail(params.orgId)">		
 		<div class="org-wrap">
 			<h3>{{orgDetail.name}}</h3>
@@ -7,17 +8,22 @@
 				<h3> <b>30</b><br />Donors </h3>
 				<h3> <b>{{orgDetail.total_funds}}</b><br />Total Funds</h3>
 				<h3> <b>10</b><br />Beneficiaries </h3>
-				<form action="" name="" class="donate-area">
+				<div ng-controller="FacebookCtrl">
+				    <button class="btn btn-primary" ng-click="login()" ng-disabled="loginStatus.status == 'connected'" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>
+				    <!-- <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button>
+				     &nbsp; -->	  
+				  </div>
+				<form role="form" name="myForm" ng-submit="donateNow()" class="donate-area" ng-show="isLoggedIn">
 					<label>Choose amount:</label><br>
 					<div>
-						<input type="radio" name="num" id="zero" checked>
+						<input type="radio" ng-model="tarrif_rate" value="0">
 						<label for="zero">0</label>
 					</div>
 					<div>
-						<input type="radio" name="num" id="one">
+						<input type="radio" ng-model="tarrif_rate" value="1">
 						<label for="one">1</label>
 					</div>
-					<input type="button" class="btn btn-info pull-right" value="Donate Now">
+					<input type="submit" class="btn btn-info pull-right" value="Donate Now">
 				</form>
 			</div>
 			<br>
