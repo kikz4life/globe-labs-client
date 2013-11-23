@@ -1,5 +1,9 @@
 <div class="main-wrap" ng-controller="OrganizationCtrl">
-	<div ng-init="getDetail(params.orgId)">
-		<h3>{{orgDetail.name}}</h3>
+	<div ng-init="getDetail(params.orgId)">		
+		<div class="org-wrap">
+			<h3>{{orgDetail.name}}</h3>
+			<div class="vid pull-left"></div>
+			<div class="org-info pull-left"></div>
+		</div>
 	</div>
 </div>

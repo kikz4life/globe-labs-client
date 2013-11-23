@@ -61,6 +61,31 @@ a { cursor: pointer;}
   opacity: 0.1;
   filter:alpha(opacity=0.1);
 }
+/*org detail page*/
+.org-wrap {
+  width:80%;
+  margin:0 auto;
+}
+/*.org-wrap h3 {text-align: center;}*/
+.org-wrap .vid {
+  width:400px;
+  height:300px;
+  background-color:#000;
+  margin:0 20px 20px 0;
+}
+.org-info {
+  width:300px;
+  height:300px;
+  
+  background-color:#fff;
+  border:solid 1px #eee;
+  border-radius:2px;
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
+  -moz-box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.5); 
+}
 
 .menu {
   list-style: none;
