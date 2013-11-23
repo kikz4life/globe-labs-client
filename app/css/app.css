@@ -16,8 +16,8 @@ a { cursor: pointer;}
 #main-container { position:relative;height:auto;padding-bottom:80px; background-color:#fff;}
 /*add ons*/
 .space-top {margin-top:5px;}
-.border-top{border-bottom:solid 5px #7D48EE !important;}
-/*.menus li.active {background-color:#7D48EE !important;}*/
+.border-top{border-bottom:solid 5px #29d1d1 !important;}
+.menus li {padding:0 20px;}
 .brand-logo {
   width:180px; height:40px;
   margin-top:5px;
@@ -61,9 +61,10 @@ a { cursor: pointer;}
   opacity: 0.1;
   filter:alpha(opacity=0.1);
 }
+.btn-donate {margin:5px 10px; width:92%; font-weight: bold;}
 /*org detail page*/
 .org-wrap {
-  width:80%;
+  width:65%;
   margin:0 auto;
 }
 /*.org-wrap h3 {text-align: center;}*/
@@ -75,8 +76,9 @@ a { cursor: pointer;}
 }
 .org-info {
   width:300px;
+  min-width:250px;
   height:300px;
-  
+  padding:10px 0;
   background-color:#fff;
   border:solid 1px #eee;
   border-radius:2px;
@@ -86,6 +88,30 @@ a { cursor: pointer;}
   -webkit-box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
   box-shadow: 1px 2px 4px rgba(0,0,0,0.5); 
 }
+.org-info h3 {
+  padding:5px 20px;
+  margin:0;
+  /*border-top:solid 1px #ccc;*/
+  border-bottom:solid 1px #eee;
+}
+.org-info i {float:right;}
+.donate-area input[type=button] {float:right; margin-right:10px; padding:10px 30px; font-weight: bold;}
+/*.donate-area input[type=radio] {width:20px; height:20px;}*/
+.donate-area {padding:10px;}
+.donate-area div {float:left; margin:10px 15px;}
+.org-desc {clear:both;}
+
+@media (max-width:1200px) {
+  .org-wrap .vid {width:100%;}
+  .org-info {width:100%; height:auto; margin-bottom:20px;}
+  .donate-area input[type=button] {float:left; margin-left:20px;}
+}
+@media (max-width:428px) {
+  .org-wrap {width:90%;}
+  .org-wrap .vid {display:none;}
+  .donate-area input[type=button] {float:left; margin-left:0;}
+}
+
 
 .menu {
   list-style: none;
@@ -122,7 +148,7 @@ a { cursor: pointer;}
   width:100%;
   height:60px;
   bottom:-20px !important;
-  border-top:solid 5px #7D48EE !important;
+  border-top:solid 5px #29d1d1 !important;
   border-bottom:none;  
   margin-bottom:0 !important;
   border-radius:0 !important;

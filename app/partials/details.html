@@ -3,7 +3,25 @@
 		<div class="org-wrap">
 			<h3>{{orgDetail.name}}</h3>
 			<div class="vid pull-left"></div>
-			<div class="org-info pull-left"></div>
+			<div class="org-info pull-left">
+				<h3> <b>30</b><br />Donors </h3>
+				<h3> <b>{{orgDetail.total_funds}}</b><br />Total Funds</h3>
+				<h3> <b>10</b><br />Beneficiaries </h3>
+				<form action="" name="" class="donate-area">
+					<label>Choose amount:</label><br>
+					<div>
+						<input type="radio" name="num" id="zero" checked>
+						<label for="zero">0</label>
+					</div>
+					<div>
+						<input type="radio" name="num" id="one">
+						<label for="one">1</label>
+					</div>
+					<input type="button" class="btn btn-info pull-right" value="Donate Now">
+				</form>
+			</div>
+			<br>
+			<p class="org-desc">{{orgDetail.description}}</p>
 		</div>
 	</div>
 </div>
