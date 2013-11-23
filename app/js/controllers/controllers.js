@@ -73,6 +73,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
         if(eval(scope.hasGlobeAccessToken) != 1) {
           console.log('if');
 	        Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
+            console.log('createGlobeAccessToken');
     				console.log(result);
     			}, function(result) {
     				console.log(result);
