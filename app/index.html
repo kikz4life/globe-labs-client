@@ -9,6 +9,7 @@
     <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="css/font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet" >
     <link href="css/app.css" rel="stylesheet" >
+    <link href="css/datepicker.css" rel="stylesheet">
 </head>
 <body>
   <div id="main_wrapper">
@@ -36,6 +37,7 @@
             <li ng-class="{ active: isActive('/login')}"><a href="#">Home</a></li>
             <li ng-class="{ active: isActive('/organizations')}"><a href="#/organizations">Organizations</a></li>
             <li ng-class="{ active: isActive('/donations')}"><a href="#/donations">Donations</a></li>
+            <li ng-class="{ active: isActive('/settings')}"><a href="#/settings"><i class="fa fa-cog"></i></a></li>
           </ul>
         </div>     
       </div>
@@ -69,6 +71,7 @@
   <script type="text/javascript" src="lib/angular/angular-easyfb.min.js"></script>
   <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="lib/localStorageModule.js"></script>
+  <script type="text/javascript" src="lib/bootstrap-datepicker.js"></script>
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
   -->

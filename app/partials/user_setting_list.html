@@ -1,0 +1,28 @@
+<div class="main-wrap">
+	<div class="gw pull-left min-height">
+		<div pre-loader class="relative-wrap"></div>
+		<div class="table-responsive">
+			<table class="table table-bordered" ng-hide="loading">
+				<tr>
+					<th>Organization</th>				
+					<th>Start Date</th>
+					<th>Next Charge Date</th>
+					<th>Action</th>
+				</tr>
+				<tr ng-repeat="item in datas | filter: search">
+					<td>{{item.name}}</td>
+					<td>{{item.start_date}}</td>
+					<td>{{item.next_charge_date}}</td>
+					<td>
+						<a ng-click="deleteItem($index, item.id)"><i class="fa fa-trash-o fa-2x"></i></a>
+						<!-- <a><i class="fa fa-edit fa-2x"></i></a> -->
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div>
+		<a href="#/settings/add" class="btn btn-danger pull-right">Add New Setting</a>		
+	</div>	
+
+</div>

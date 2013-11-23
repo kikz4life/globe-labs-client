@@ -9,15 +9,22 @@ angular.module('myApp.directives', ['LocalStorageModule'])
       elm.text(version);
     };
   }])
-  /*.directive('donateBtn', function(localStorageService, Utils) {
+  .directive('calendar', function() {
     return {
-      restrict : 'A',
-      // template : '<a href="http://developer.globelabs.com.ph/dialog/oauth?app_id=gBKdrHRyMMeCp5Tr7zcMnGC8kKqkHagB" class="btn btn-primary">Donate</a>',
-      template : '<a href="/organization/details" class="btn btn-primary">Donate</a>',
-      link: function(scope, element, attrs) {
-        var newUrl = 
-        if(! Utils.isEmpty(attrs.type) )  
-        console.log(attrs.type);
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope,el,attr, ngModel) {
+        if(!attr.calendar) {
+          $(el).datepicker({
+            // endDate : '-5y'
+          });
+        } 
+        $(el).datepicker()
+          .on('changeDate', function(e){
+            scope.$apply(function() {
+              ngModel.$setViewValue(e.date);
+          });
+        });
       }
     }
-  })*/;
+  });

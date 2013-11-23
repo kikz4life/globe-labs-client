@@ -171,3 +171,36 @@ a { cursor: pointer;}
   padding-top:10px;
   z-index: 60;
 }
+
+/**
+ *Gamepage style
+ *Note: gw = Game wrapper
+*/
+.gw{width: 100%;}
+.min-height{min-height: 300px;}
+.gw-item {
+  display: inline-block;
+  border-bottom: 1px solid #f2f2f5;
+  padding: 10px;
+  margin: auto;
+  width: 99%;
+  /*border: 1px solid red;*/
+}
+.gw-ltcol{margin-right: 20px;width: 200px;}
+.gw-main-pic{
+  margin-right: 2px;
+  background-image: url(../img/game-img/main.jpg);
+  width: 198px;
+  height: 144px;
+}
+.gw-mini-1{background-image: url(../img/game-img/1.jpg);width: 118px;height: 70px;}
+.gw-mini-2{
+  background-image: url(../img/game-img/2.jpg);
+  margin-top: 3px;
+  width: 118px;
+  height: 70px;
+  /*border: 1px solid red;*/
+}
+.gw-rtcol{font-size: 12px;}
+.gw-rtcol a {line-height:15px; margin-right:5px;}
+.table {margin:10px 0 20px 0;}

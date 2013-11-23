@@ -31,16 +31,15 @@ angular.module('myApp.services', [])
       convertIntegerToChar: function(n) {
         return String.fromCharCode(97 + n);
       },
-      dateToTimestampOld: function(date, time) {
-        if(this.isEmpty(date) || this.isEmpty(time)) return false;
-        
+      dateToTimestampOld: function(date) {        
         var day = date.getDate();
         var month = eval(date.getMonth() + 1); //add +1 since month return 0-11
         var year = date.getFullYear();
         var newDate;
 
-        newDate = month + '/' + day + '/' + year + ' ' + time;
-        newDate = new Date(newDate).getTime();
+        // newDate = month + '/' + day + '/' + year;
+        newDate = year + '-' + month + '-' + day;
+        // newDate = new Date(newDate).getTime();
 
         return newDate;
       },

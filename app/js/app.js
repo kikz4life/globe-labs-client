@@ -13,14 +13,17 @@ angular.module('myApp', [
 ])
 .config(['$routeProvider', function($routeProvider) {
   // $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
+  $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
   $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
   // org pages
   $routeProvider.when('/redirect_uri', {templateUrl: 'partials/redirect_page.html', controller: 'CallbackCtrl'});
   $routeProvider.when('/organizations', {templateUrl: 'partials/organizations.html', controller: 'OrganizationCtrl'});
   $routeProvider.when('/donations', {templateUrl: 'partials/donations.html', controller: ''});
   $routeProvider.when('/organizations/detail/:orgId', {templateUrl: 'partials/details.html'});
+  $routeProvider.when('/settings', {templateUrl: 'partials/user_setting_list.html', controller: 'SettingCtrl'});
+  $routeProvider.when('/settings/add', {templateUrl: 'partials/user_setting.html', controller: 'SettingCtrl'});
 
-  $routeProvider.otherwise({redirectTo: '/login'});
+  $routeProvider.otherwise({redirectTo: '/home'});
 }])
 .config(function ($FBProvider) {
 	$FBProvider.setInitParams({

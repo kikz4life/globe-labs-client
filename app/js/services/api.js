@@ -63,6 +63,37 @@ angular.module('myApp.servicesApi', ['LocalStorageModule'])
         var user_credentials = localStorageService.get("userCreds");
 
         return user_credentials;
+      },
+      createRecurringCharges: function(userId, orgId, frequency, startdate, amt) {
+        var xsrf = $.param({
+            user_id: userId, 
+            organization_id: orgId,
+            frequency: frequency,
+            start_date : startdate,
+            amount : amt
+          });
+        return $http({
+          method  : 'POST',
+          url     : api + '/user/v1/recurring',
+          data    : xsrf,
+          headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
+        });
+      },
+      getSettingList: function(userId) {
+        return $http({
+          method  : 'GET',          
+          url     : api + '/user/v1/recurring',
+          params  : {'user_id': userId }
+        });
+      },
+      deleteSetting: function(recurring_id) {
+        var xsrf = $.param({recurring_id: recurring_id});
+        return $http({
+          method  : 'POST',
+          url     : api + '/user/v1/delete_recurring',
+          data    : xsrf,
+          headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
+        });
       }
     };
   });

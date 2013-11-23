@@ -40,14 +40,14 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
 
   /* Organization Controller*/
-  .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', 'localStorageService', function(scope, Api, routeParams, session) {
+  .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', 'localStorageService', 'Utils', function(scope, Api, routeParams, session, Utils) {
     scope.showBanner = true;
   	var creds = Api.getUserCredentials();
   	var code = Api.getCode();
 
     scope.orgDetail = {};
     scope.params = routeParams;
-    // scope.hasGlobeAccessToken = creds.user.has_globe_access_token;
+    scope.hasGlobeAccessToken = (Utils.isEmpty(creds)) ? "" : creds.user.has_globe_access_token;
 
     Api.getListOrganization().then(function(result) {
       console.log(result.data);
@@ -103,6 +103,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     scope.logout = function () {
       FB.logout(function () {
         updateLoginStatus(updateApiMe);
+        session.clearAll();
       });
     };
 
@@ -161,4 +162,65 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     scope.isActive = function(loc){
       return loc === location.path();
     };
+  }])
+  /* Settings Cotroller */
+  .controller('SettingCtrl', ['$scope', '$location', 'Api', 'Utils', function(scope, location, Api, Utils) {
+    console.log('settings controller');
+
+    var creds = Api.getUserCredentials();
+  var code = Api.getCode();
+  var user_id = creds.user.id;
+    
+    scope.organization = {};
+
+    Api.getListOrganization().then(function(result) {
+      scope.listOfOrg = result.data.result;
+      console.log(result.data);
+    }, function(result){
+      console.log(result.data);
+    });
+  
+  scope.frequency_data = [
+    {id : "day", name : "Daily"},
+    {id : "week", name : "Weekly"},
+    {id : "month", name : "Monthly"}  
+  ];
+
+  scope.settingList = function() {
+    Api.getSettingList(user_id).then(function(result) {
+      console.log(result.data);
+      scope.datas = result.data.result;
+    }, function(result){
+      console.log(result.data);
+    })
+  }
+
+    scope.saveSetting = function () {
+      var org_id = scope.organization.selected.id;
+      var freq = scope.frequency;
+      var start_date = Utils.dateToTimestampOld(scope.startdate);
+    var amount = scope.amount;      
+
+      Api.createRecurringCharges(user_id, org_id, freq, start_date, amount).then(function(result) {
+        console.log(result.data);
+        // scope.settingList = result.data.result;
+      }, function(result){
+        console.log(result);
+      })
+    };
+
+    scope.deleteItem = function(item, id) {
+      
+      var index = scope.datas.indexOf(item)
+      
+      scope.datas.splice(index,1);  
+      
+      Api.deleteSetting(id).then(function(result){
+        console.log(result.data);
+      },function(result) {
+        console.log(result);
+      })
+    };
+
+    scope.settingList();
   }]);
