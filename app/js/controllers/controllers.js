@@ -6,7 +6,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   controller('LoginCtrl', ['$scope', '$location', 'Utils', 'localStorageService', 'Api', function(scope, location, Utils, session, Api) {
   	console.log('loaded loginCtrl');
 
-    // scope.showBanner = true;
+    // scope.showBanner = false;
 
   }])
 
