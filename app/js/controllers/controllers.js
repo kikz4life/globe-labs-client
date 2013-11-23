@@ -189,6 +189,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
           scope.apiMe = result.data;
           session.add("userCreds", scope.apiMe.result);
           rootScope.$broadcast("event:loggedIn");
+          location.path('/home');
         }, function(result) {
           console.log(result);
         });
