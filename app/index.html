@@ -33,7 +33,14 @@
           </li>
         </ul> -->
         <div class="nav-collapse bs-navbar-collapse collapse">
-          <ul class="nav navbar-nav pull-right menus" ng-controller="headerCtrl">
+          <ul class="nav navbar-nav pull-right menus" ng-controller="FacebookCtrl">
+            <li>
+              <button class="btn btn-primary" ng-click="login()" ng-disabled="loginStatus.status == 'connected'" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>
+     &nbsp; 
+    <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav pull-right menus" ng-controller="headerCtrl" ng-show="isLoggedIn">
             <li ng-class="{ active: isActive('/login')}"><a href="#">Home</a></li>
             <li ng-class="{ active: isActive('/organizations')}"><a href="#/organizations">Organizations</a></li>
             <li ng-class="{ active: isActive('/donations')}"><a href="#/donations">Donations</a></li>

@@ -8,12 +8,15 @@
 				<h3> <b>30</b><br />Donors </h3>
 				<h3> <b>{{orgDetail.total_funds}}</b><br />Total Funds</h3>
 				<h3> <b>10</b><br />Beneficiaries </h3>
-				<div ng-controller="FacebookCtrl" class="padding-top-10">
+				<!-- <div ng-controller="FacebookCtrl" class="padding-top-10">
 				    <button class="btn btn-primary" ng-click="login()" ng-disabled="loginStatus.status == 'connected'" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>
-				    <!-- <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button> -->
 				     &nbsp;	  
-				  </div>
-				<form role="form" name="myForm" ng-submit="donateNow()" class="donate-area" ng-show="isLoggedIn">
+				</div> -->
+				<!-- {{hasGlobeAccessToken}} -->
+				<div ng-controller="FacebookCtrl" class="padding-top-10">
+				    <a ng-hide="hasGlobeAccessToken" href="http://developer.globelabs.com.ph/dialog/oauth?app_id=gBKdrHRyMMeCp5Tr7zcMnGC8kKqkHagB" ng-click="storeOrgId(list.id)" class="btn btn-primary btn-donate">Get Globe Token</a>
+				</div>
+				<form role="form" name="myForm" ng-submit="donateNow()" class="donate-area" ng-show="hasGlobeAccessToken">
 					<label>Choose amount:</label><br>
 					<div>
 						<input type="radio" ng-model="tarrif_rate" value="0">

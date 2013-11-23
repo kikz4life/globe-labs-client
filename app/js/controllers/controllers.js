@@ -79,7 +79,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     				console.log(result);
     			}, function(result) {
             //redirect to login facebook
-            location.path('/login');
+            // location.path('/login');
     				console.log(result);
     			});
         }else {
@@ -211,9 +211,20 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
   .controller('headerCtrl', ['$scope', '$location', function(scope, location) {
     console.log('header controller');
+    scope.isLoggedIn = false;
     scope.isActive = function(loc){
       return loc === location.path();
     };
+
+    scope.$on("event:loggedOut", function() {
+      console.log('boom');
+      scope.isLoggedIn = false;
+    });
+
+    scope.$on("event:loggedIn", function() {
+      console.log('boom');
+      scope.isLoggedIn = true;
+    });
   }])
   /* Settings Cotroller */
   .controller('SettingCtrl', ['$scope', '$location', 'Api', 'Utils', function(scope, location, Api, Utils) {
