@@ -5,7 +5,9 @@
 angular.module('myApp.controllers', ['LocalStorageModule']).
   controller('LoginCtrl', ['$scope', '$location', 'Utils', 'localStorageService', 'Api', function(scope, location, Utils, session, Api) {
   	console.log('loaded loginCtrl');
-  
+
+    // scope.showBanner = true;
+
   }])
 
   /* Callback Controller */
@@ -39,14 +41,13 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
 
   /* Organization Controller*/
   .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', 'localStorageService', function(scope, Api, routeParams, session) {
-
+    scope.showBanner = true;
   	var creds = Api.getUserCredentials();
   	var code = Api.getCode();
 
-
     scope.orgDetail = {};
     scope.params = routeParams;
-    scope.hasGlobeAccessToken = creds.user.has_globe_access_token;
+    // scope.hasGlobeAccessToken = creds.user.has_globe_access_token;
 
     Api.getListOrganization().then(function(result) {
       console.log(result.data);
@@ -85,7 +86,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
   /* Facebook Controller */
   .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api', 'Utils', 'localStorageService' ,function (scope, FB, window, location, Api, Utils, session) {
-  
+    
     updateLoginStatus(updateApiMe);
     // console.log(FB);
     scope.login = function () {
