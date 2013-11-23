@@ -45,7 +45,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
 
   /* Organization Controller*/
-  .controller('OrganizationCtrl', ['$scope', '$rootScope', '$routeParams', '$location', 'localStorageService', 'Api', 'Utils', function(scope, rootScope, routeParams, location, session, Api, Utils) {
+  .controller('OrganizationCtrl', ['$scope', '$rootScope', '$sce', '$routeParams', '$location', 'localStorageService', 'Api', 'Utils', function(scope, rootScope, sce, routeParams, location, session, Api, Utils) {
     var creds = Api.getUserCredentials();
     var code = Api.getCode();
 
@@ -68,6 +68,8 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
       Api.getOrgDetail(orgID).then(function(result) {
         console.log(result.data);
         scope.orgDetail = result.data.result;
+        scope.trustedHtml = sce.trustAsHtml(result.data.result.description);
+        
         console.log(scope.hasGlobeAccessToken);
         if(!scope.isLoggedIn) return false;
         if(eval(scope.hasGlobeAccessToken) != 1) {
@@ -179,7 +181,10 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     function updateLoginStatus (more) {
       FB.getLoginStatus(function (res) {
         scope.loginStatus = res;
-        if( Utils.isEmpty(res.authResponse) ) return false;
+        if( Utils.isEmpty(res.authResponse) ) {
+          rootScope.$broadcast("event:loggedOut");
+          return false;
+        }
         //set Fb token
         Api.setFbToken(res.authResponse.accessToken);
         //HTTP post
@@ -189,7 +194,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
           scope.apiMe = result.data;
           session.add("userCreds", scope.apiMe.result);
           rootScope.$broadcast("event:loggedIn");
-          location.path('/home');
+          // location.path('/home');
         }, function(result) {
           console.log(result);
         });

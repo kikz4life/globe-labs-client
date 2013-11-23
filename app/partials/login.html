@@ -1,17 +1,22 @@
- <div class="container">
+ <div class="container" ng-controller="FacebookCtrl">
  
+  <div class="bs-callout bs-callout-warning col-sm-6 .col-sm-offset-3" id="callout-less-compilation">
+    <div ng-hide="loginStatus.status == 'connected'">
+      <h3>Login Facebook</h3>
+      <p><button class="btn btn-primary" ng-click="login()" ng-disabled="loginStatus.status == 'connected'"><i class="fa fa-facebook-square fa-2x">&nbsp;</i>Connect with Facebook</button></p>
+    </div>
+    <p ng-show="loginStatus.status == 'connected'">Redirect to <a href="#/home">home</a>...</p>
+  </div>
 
-  <div ng-controller="FacebookCtrl">
+  <!-- <div ng-controller="FacebookCtrl">
     <button class="btn btn-primary" ng-click="login()" ng-disabled="loginStatus.status == 'connected'" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>
      &nbsp; 
-    <!-- <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button>
+    <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button>
      &nbsp;
-    <button class="btn btn-success" ng-click="share()">FB.ui</button> -->
+    <button class="btn btn-success" ng-click="share()">FB.ui</button>
   
-  </div>
+  </div> -->
   
-  <br>
-
   <!-- <div class="row">
     <div class="col-md-6">
       <h4 class="text-info">$FB.loginStatus()</h4>

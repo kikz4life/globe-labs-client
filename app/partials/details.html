@@ -8,10 +8,10 @@
 				<h3> <b>30</b><br />Donors </h3>
 				<h3> <b>{{orgDetail.total_funds}}</b><br />Total Funds</h3>
 				<h3> <b>10</b><br />Beneficiaries </h3>
-				<div ng-controller="FacebookCtrl">
+				<div ng-controller="FacebookCtrl" class="padding-top-10">
 				    <button class="btn btn-primary" ng-click="login()" ng-disabled="loginStatus.status == 'connected'" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>
-				    <!-- <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button>
-				     &nbsp; -->	  
+				    <!-- <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button> -->
+				     &nbsp;	  
 				  </div>
 				<form role="form" name="myForm" ng-submit="donateNow()" class="donate-area" ng-show="isLoggedIn">
 					<label>Choose amount:</label><br>
@@ -27,7 +27,8 @@
 				</form>
 			</div>
 			<br>
-			<p class="org-desc">{{orgDetail.description}}</p>
+			<p class="org-desc" ng-bind-html="trustedHtml">	</p>
+			<!-- <p class="org-desc"><div ng-bind-html-unsafe="orgDetail.description"></div></p> -->
 		</div>
 	</div>
 </div>
