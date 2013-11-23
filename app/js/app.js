@@ -17,7 +17,6 @@ angular.module('myApp', [
   // org pages
   $routeProvider.when('/redirect_uri', {templateUrl: 'partials/redirect_page.html', controller: 'CallbackCtrl'});
   $routeProvider.when('/organizations', {templateUrl: 'partials/organizations.html', controller: 'OrganizationCtrl'});
-  $routeProvider.when('/organizations/:id', {templateUrl: 'partials/organizations_detail.html', controller: 'OrganizationCtrl'});
   $routeProvider.when('/donations', {templateUrl: 'partials/donations.html', controller: ''});
   $routeProvider.when('/organizations/detail/:orgId', {templateUrl: 'partials/details.html'});
 

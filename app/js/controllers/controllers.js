@@ -9,15 +9,16 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
 
   /* Callback Controller */
-  .controller('CallbackCtrl', ['$scope', '$timeout', 'localStorageService', 'Utils', 'Api', function(scope, timeout, session, Utils, Api) {
+  .controller('CallbackCtrl', ['$scope', '$timeout', '$location', 'localStorageService', 'Utils', 'Api', function(scope, timeout, location, session, Utils, Api) {
   	//set code  	
     if(! Utils.isEmpty(location.search().code) ) {
     	Api.setCode(location.search().code);
-
+    	// session.add("id", "09e9f116652cdcb4c99cb397fa4a628e");
     	//get session organization
     	var orgId = session.get('id');
 
     	timeout(function() {
+    		delete location.search().code;
     		location.path('/organization/' + orgId);
     		//after successful redirect delete session orgId
     		session.clearAll();
