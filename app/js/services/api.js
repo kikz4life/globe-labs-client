@@ -44,8 +44,9 @@ angular.module('myApp.servicesApi', [])
       },
       getOrgDetail: function(orgID) {
         return $http({
-          method  : 'GET',
-          url     : api + ''
+          method  : 'GET',          
+          url     : api + '/organization/v1/detail',
+          params  : {'organization_id': orgID }
         });
       }
     };

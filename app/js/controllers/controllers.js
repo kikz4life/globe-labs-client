@@ -12,14 +12,29 @@ angular.module('myApp.controllers', []).
 
   }])
   /* Organization Controller*/
-  .controller('OrganizationCtrl', ['$scope', 'Api', function(scope, Api) {
+  .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', function(scope, Api, routeParams) {
+
+    scope.orgDetail = {};
+    scope.params = routeParams;
+
     Api.getListOrganization().then(function(result) {
       console.log(result.data);
       scope.orgLists = result.data.result;
       console.log(scope.orgLists);
     }, function(result) {
       console.log(result.data);
-    })
+    });
+
+    scope.getDetail = function(orgID) {
+      Api.getOrgDetail(orgID).then(function(result) {
+        console.log(result.data);
+        scope.orgDetail = result.data.result;
+        console.log(scope.orgDetail);
+      }, function(result) {
+        console.log(result.data);
+      });
+    };
+
   }])
   /* Facebook Controller */
   .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api' ,function (scope, FB, window, location, Api) {

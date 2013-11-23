@@ -18,6 +18,7 @@ angular.module('myApp', [
   $routeProvider.when('/redirect_uri', {templateUrl: 'partials/redirect_page.html', controller: 'LoginCtrl'});
   $routeProvider.when('/organizations', {templateUrl: 'partials/organizations.html', controller: 'OrganizationCtrl'});
   $routeProvider.when('/donations', {templateUrl: 'partials/donations.html', controller: ''});
+  $routeProvider.when('/organizations/detail/:orgId', {templateUrl: 'partials/details.html'});
 
   $routeProvider.otherwise({redirectTo: '/login'});
 }])

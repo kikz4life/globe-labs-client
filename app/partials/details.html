@@ -1,3 +1,5 @@
-<div>
-	<h1>Organization Page</h1>
+<div class="main-wrap" ng-controller="OrganizationCtrl">
+	<div ng-init="getDetail(params.orgId)">
+		<h3>{{orgDetail.name}}</h3>
+	</div>
 </div>
