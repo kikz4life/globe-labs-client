@@ -76,7 +76,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
           console.log('if');
 	        Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
             console.log('createGlobeAccessToken');
-            rootScope.$broadcast("event: successGetToken");
+            rootScope.$broadcast("event:loggedIn");
     				console.log(result);
     			}, function(result) {
             //redirect to login facebook
@@ -120,10 +120,6 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
       console.log(id);
       session.add("id", id);
     };
-
-    scope.$on("event: successGetToken", function() {
-      scope.hasGlobeAccessToken = (Utils.isEmpty(creds)) ? "" : creds.user.has_globe_access_token;
-    });
 
     scope.$on("event:loggedOut", function() {
       console.log('boom');
