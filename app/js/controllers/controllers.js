@@ -45,7 +45,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
 
   /* Organization Controller*/
-  .controller('OrganizationCtrl', ['$scope', '$rootScope', 'Api', '$routeParams', 'localStorageService', 'Utils', function(scope, rootScope, Api, routeParams, session, Utils) {
+  .controller('OrganizationCtrl', ['$scope', '$rootScope', '$routeParams', 'localStorageService', 'Api', 'Utils', function(scope, rootScope, routeParams, session, Api, Utils) {
     var creds = Api.getUserCredentials();
     var code = Api.getCode();
 
