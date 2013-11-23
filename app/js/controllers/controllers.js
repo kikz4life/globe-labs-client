@@ -10,7 +10,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
 
   /* Callback Controller */
   .controller('CallbackCtrl', ['$scope', '$timeout', '$location', 'localStorageService', 'Utils', 'Api', function(scope, timeout, location, session, Utils, Api) {
-  	
+	console.log('callback loaded');  	
   	//set code  	
     if(! Utils.isEmpty(location.search().code) ) {
     	Api.setCode(location.search().code);
@@ -20,7 +20,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
 
     	timeout(function() {
     		delete location.search().code;
-    		location.path('/organization/' + orgId);
+    		location.path('/organizations/detail/' + orgId);
     		//after successful redirect delete session orgId
     		session.clearAll();
     	}, 1000)
