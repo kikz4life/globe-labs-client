@@ -27,12 +27,12 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     	var creds = Api.getUserCredentials();
 
     	// console.log(creds.authResponse.userID);
-    	Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
+/*    	Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
     		console.log(result);
     	}, function(result) {
     		console.log(result);
     	});
-
+*/
 
     	timeout(function() {
     		delete location.search().code;
