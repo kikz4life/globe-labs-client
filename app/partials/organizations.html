@@ -24,9 +24,9 @@
 		<p class="smalltxt">{{list.short_description}}</p>
 		<p><i class="fa fa-map-marker"></i> Quezon City, Metro Manila</p>
 		<p><i class="fa fa-heart-o"></i> <b>Donations: </b><span>{{list.total_funds}}php</span></p>
-		<!-- <span>{{list.id}}</span> -->
-		<!-- <a href="#/organizations/detail/{{list.id}}" class="wrap-link"></a> -->
-		<div donate-btn ng-click="storeOrgId(list.id)"></div>
+		
+		<a ng-hide="hasGlobeAccessToken" href="http://developer.globelabs.com.ph/dialog/oauth?app_id=gBKdrHRyMMeCp5Tr7zcMnGC8kKqkHagB" class="btn btn-primary">Donate</a>
+		<a ng-show="hasGlobeAccessToken" href="#/organizations/detail/{{list.id}}" class="btn btn-primary">Donate</a>
 	</div>
 
 

@@ -17,12 +17,22 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     	// session.add("id", "09e9f116652cdcb4c99cb397fa4a628e");
     	//get session organization
     	var orgId = session.get('id');
+    	var code = Api.getCode();
+    	var creds = Api.getUserCredentials();
+
+    	// console.log(creds.authResponse.userID);
+    	Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
+    		console.log(result);
+    	}, function(result) {
+    		console.log(result);
+    	});
+
 
     	timeout(function() {
     		delete location.search().code;
     		location.path('/organizations/detail/' + orgId);
     		//after successful redirect delete session orgId
-    		session.clearAll();
+    		session.remove("id");
     	}, 1000)
     }
   }])
@@ -30,13 +40,17 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   /* Organization Controller*/
   .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', 'localStorageService', function(scope, Api, routeParams, session) {
 
+  	var creds = Api.getUserCredentials();
+  	var code = Api.getCode();
+
+
     scope.orgDetail = {};
     scope.params = routeParams;
+    scope.hasGlobeAccessToken = creds.user.has_globe_access_token;
 
     Api.getListOrganization().then(function(result) {
       console.log(result.data);
       scope.orgLists = result.data.result;
-      console.log(scope.orgLists);
     }, function(result) {
       console.log(result.data);
     });
@@ -45,11 +59,23 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
       Api.getOrgDetail(orgID).then(function(result) {
         console.log(result.data);
         scope.orgDetail = result.data.result;
-        console.log(scope.orgDetail);
+
+        if(! scope.hasGlobeAccessToken) {
+	        Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
+				console.log(result);
+			}, function(result) {
+				console.log(result);
+			});
+        }else {
+        	scope_globeAccessToken = creds.user.globe_access_token;
+        }
+        
       }, function(result) {
         console.log(result.data);
       });
     };
+
+
 
     scope.storeOrgId = function(id) {
     	console.log(id);
@@ -58,7 +84,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
 
   }])
   /* Facebook Controller */
-  .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api', 'Utils' ,function (scope, FB, window, location, Api, Utils) {
+  .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api', 'Utils', 'localStorageService' ,function (scope, FB, window, location, Api, Utils, session) {
   
     updateLoginStatus(updateApiMe);
     // console.log(FB);
@@ -114,6 +140,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
         Api.fbLogin(postData).then(function(result){
           console.log(result);
           scope.apiMe = result.data;
+          session.add("userCreds", scope.apiMe.result);
         }, function(result) {
           console.log(result);
         });
