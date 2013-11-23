@@ -19,7 +19,7 @@
 	</div> -->
 
 	<div class="wrap-thumb pull-left" ng-repeat="list in orgLists">		
-		<img src="{{list.image}}" class="wrap-pic">
+		<img ng-src="{{list.image}}" class="wrap-pic">
 		<h5><b>{{list.name}}</b></h5>
 		<p class="smalltxt">{{list.short_description}}</p>
 		<p><i class="fa fa-map-marker"></i> Quezon City, Metro Manila</p>
