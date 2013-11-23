@@ -76,7 +76,8 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
           console.log('if');
 	        Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
             console.log('createGlobeAccessToken');
-            rootScope.$broadcast("event:loggedIn");
+            session.add("userCreds", scope.apiMe.result);
+            // rootScope.$broadcast("event:loggedIn");
     				console.log(result);
     			}, function(result) {
             //redirect to login facebook
