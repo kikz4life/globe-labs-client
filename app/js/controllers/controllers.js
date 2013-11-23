@@ -15,7 +15,8 @@ angular.module('myApp.controllers', []).
   .controller('OrganizationCtrl', ['$scope', 'Api', function(scope, Api) {
     Api.getListOrganization().then(function(result) {
       console.log(result.data);
-      scope.orgLists = result.data;
+      scope.orgLists = result.data.result;
+      console.log(scope.orgLists);
     }, function(result) {
       console.log(result.data);
     })

@@ -41,6 +41,12 @@ angular.module('myApp.servicesApi', [])
           method  : 'GET',
           url     : api + '/organization/v1/list'
         });
+      },
+      getOrgDetail: function(orgID) {
+        return $http({
+          method  : 'GET',
+          url     : api + ''
+        });
       }
     };
   });
