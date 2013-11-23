@@ -76,7 +76,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
           console.log('if');
 	        Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
             console.log('createGlobeAccessToken');
-            session.add("userCreds", scope.apiMe.result);
+            session.add("userCreds", result.data.result);
             // rootScope.$broadcast("event:loggedIn");
     				console.log(result);
     			}, function(result) {
