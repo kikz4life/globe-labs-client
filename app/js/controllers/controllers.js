@@ -76,6 +76,8 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
             console.log('createGlobeAccessToken');
     				console.log(result);
     			}, function(result) {
+            //redirect to login facebook
+            location.path('/login');
     				console.log(result);
     			});
         }else {
