@@ -11,6 +11,16 @@ angular.module('myApp.controllers', []).
 
 
   }])
+  /* Organization Controller*/
+  .controller('OrganizationCtrl', ['$scope', 'Api', function(scope, Api) {
+    Api.getListOrganization().then(function(result) {
+      console.log(result.data);
+      scope.orgLists = result.data;
+    }, function(result) {
+      console.log(result.data);
+    })
+  }])
+  /* Facebook Controller */
   .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api' ,function (scope, FB, window, location, Api) {
   
     updateLoginStatus(updateApiMe);
@@ -65,9 +75,10 @@ angular.module('myApp.controllers', []).
         //set Fb token
         Api.setFbToken(res.authResponse.accessToken);
         //HTTP post
-        var postData = { "fb_access_token" : Api.getFbToken() };
+        var postData = Api.getFbToken();
         Api.fbLogin(postData).then(function(result){
           console.log(result);
+          scope.apiMe = result.data;
         }, function(result) {
           console.log(result);
         });
@@ -78,7 +89,7 @@ angular.module('myApp.controllers', []).
 
     function updateApiMe () {
       FB.api('/me', function (res) {
-        scope.apiMe = res;
+        // scope.apiMe = res;
       });
     }
   }])

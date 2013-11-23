@@ -26,13 +26,14 @@ angular.module('myApp.servicesApi', [])
       getFbToken: function(){
         return fbToken;
       },
-      fbLogin: function(postData) {
+      fbLogin: function(data) {
+        var xsrf = $.param({fb_access_token: data});
         // console.log(postData);
         return $http({
           method  : 'POST',
           url     : api + '/user/v1/login',
-          data    : postData,
-          headers : {'Content-Type' : 'application/json'}
+          data    : xsrf,
+          headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
         });
       },
       getListOrganization: function() {
