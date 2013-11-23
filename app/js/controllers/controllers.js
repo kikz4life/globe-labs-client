@@ -10,6 +10,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
 
   /* Callback Controller */
   .controller('CallbackCtrl', ['$scope', '$timeout', '$location', 'localStorageService', 'Utils', 'Api', function(scope, timeout, location, session, Utils, Api) {
+  	
   	//set code  	
     if(! Utils.isEmpty(location.search().code) ) {
     	Api.setCode(location.search().code);
@@ -27,7 +28,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
   }])
 
   /* Organization Controller*/
-  .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', function(scope, Api, routeParams) {
+  .controller('OrganizationCtrl', ['$scope', 'Api', '$routeParams', 'localStorageService', function(scope, Api, routeParams, session) {
 
     scope.orgDetail = {};
     scope.params = routeParams;
@@ -48,6 +49,11 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
       }, function(result) {
         console.log(result.data);
       });
+    };
+
+    scope.storeOrgId = function(id) {
+    	console.log(id);
+		session.add("id", id);
     };
 
   }])

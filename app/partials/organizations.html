@@ -25,7 +25,8 @@
 		<p><i class="fa fa-map-marker"></i> Quezon City, Metro Manila</p>
 		<p><i class="fa fa-heart-o"></i> <b>Donations: </b><span>{{list.total_funds}}php</span></p>
 		<!-- <span>{{list.id}}</span> -->
-		<a href="#/organizations/detail/{{list.id}}" class="wrap-link"></a>
+		<!-- <a href="#/organizations/detail/{{list.id}}" class="wrap-link"></a> -->
+		<div donate-btn ng-click="storeOrgId(list.id)"></div>
 	</div>
 
 
