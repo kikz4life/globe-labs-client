@@ -15,17 +15,16 @@
     <div class="navbar navbar-static-top navbar-inverse border-top">
       <div class="container space-top">
         <a class="navbar-brand" href="#">Load-i-Care</a>
-        <ul class="nav nav-pills pull-right" ng-controller="FacebookCtrl">
+        <!-- <ul class="nav nav-pills pull-right" ng-controller="FacebookCtrl">
           <li>
             <div>
               <button class="btn btn-primary" ng-click="login()" ng-disabled="loginStatus.status == 'connected'" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>
                &nbsp; 
               <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button>
                &nbsp;
-              <!-- <button class="btn btn-success" ng-click="share()">FB.ui</button> -->
             </div>
           </li>
-        </ul>
+        </ul> -->
         <ul class="nav nav-pills pull-right" ng-controller="headerCtrl">
           <li ng-class="{ active: isActive('/login')}"><a href="#">Home</a></li>
           <li ng-class="{ active: isActive('/organizations')}"><a href="#/organizations">Organizations</a></li>

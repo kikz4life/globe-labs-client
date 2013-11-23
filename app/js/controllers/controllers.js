@@ -3,13 +3,15 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('LoginCtrl', ['$scope', '$location', 'Utils', 'Api', function($scope, $location, $Utils, $Api) {
+  controller('LoginCtrl', ['$scope', '$location', 'Utils', 'Api', function(scope, location, Utils, Api) {
   	console.log('loaded loginCtrl');
   
     //set code  	
-    if(! $Utils.isEmpty($location.search().code) ) $Api.setCode($location.search().code); 
+    if(! Utils.isEmpty(location.search().code) ) Api.setCode(location.search().code);
+
+
   }])
-  .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location' ,function (scope, FB, window, location) {
+  .controller('FacebookCtrl', ['$scope', '$FB', '$window', '$location', 'Api' ,function (scope, FB, window, location, Api) {
   
     updateLoginStatus(updateApiMe);
     // console.log(FB);
@@ -33,6 +35,8 @@ angular.module('myApp.controllers', []).
     scope.$watch("loginStatus", function(val) {
       // console.log(val)
       scope.loginStatusJSON = val;
+      //set Facebook token
+      console.log(val);
     }, true);
 
     scope.$watch("apiMe", function(val) {
@@ -58,6 +62,15 @@ angular.module('myApp.controllers', []).
     function updateLoginStatus (more) {
       FB.getLoginStatus(function (res) {
         scope.loginStatus = res;
+        //set Fb token
+        Api.setFbToken(res.authResponse.accessToken);
+        //HTTP post
+        var postData = { "fb_access_token" : Api.getFbToken() };
+        Api.fbLogin(postData).then(function(result){
+          console.log(result);
+        }, function(result) {
+          console.log(result);
+        });
 
         (more || angular.noop)();
       });
