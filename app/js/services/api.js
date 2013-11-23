@@ -9,6 +9,7 @@ angular.module('myApp.servicesApi', ['LocalStorageModule'])
   .factory('Api', function($http, apiInfo, localStorageService) {
     console.log('api');
     var api = apiInfo.url;
+    var user_credentials = "";
     var globeCode = "",
         fbToken = "";
 
@@ -60,7 +61,7 @@ angular.module('myApp.servicesApi', ['LocalStorageModule'])
         });
       },
       getUserCredentials: function() {
-        var user_credentials = localStorageService.get("userCreds");
+        user_credentials = localStorageService.get("userCreds");
 
         return user_credentials;
       },
