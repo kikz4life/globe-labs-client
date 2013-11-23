@@ -39,6 +39,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     		delete location.search().code;
     		location.path('/organizations/detail/' + orgId);
     		//after successful redirect delete session orgId
+    		// session.remove("id");
     	}, 1000)
     }
   }])
@@ -64,7 +65,6 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     });
 
     scope.getDetail = function(orgID) {
-      session.remove("id");
       Api.getOrgDetail(orgID).then(function(result) {
         console.log(result.data);
         scope.orgDetail = result.data.result;
