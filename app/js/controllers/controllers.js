@@ -55,6 +55,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     scope.hasGlobeAccessToken = (Utils.isEmpty(creds)) ? "" : creds.user.has_globe_access_token;
     scope.isLoggedIn = (Utils.isEmpty(creds)) ? false : true;
     scope.tarrif_rate = 0;
+    scope.loading = false;
     console.log(scope.isLoggedIn);
 
     Api.getListOrganization().then(function(result) {
@@ -69,7 +70,10 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
         console.log(result.data);
         scope.orgDetail = result.data.result;
         scope.trustedHtml = sce.trustAsHtml(result.data.result.description);
-        
+        scope.trustedVideo = sce.trustAsHtml(result.data.result.video);
+        if(! Utils.isEmpty(result.data.result.video)) scope.isVideo = true;
+        else scope.isVideo = false;
+
         console.log(scope.hasGlobeAccessToken);
         if(!scope.isLoggedIn) return false;
         if(eval(scope.hasGlobeAccessToken) != 1) {
@@ -103,14 +107,19 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
       // var benif_id = ;
       var amt = scope.tarrif_rate;
       
+      scope.loading = true;
+
       if (r==true){
         Api.postCharges(user_id, org_id, amt).then(function(result){
           console.log(result.data);
           rootScope.$broadcast("event:donated", amt);
-          
+          scope.showMsg = true;
+          scope.loading = false;
+          if(result.data.message === 'Success') scope.data = "Thank you very much for you donation.";
         }, function(result) {
           console.log(result.data);
           scope.showError = true;
+          scope.loading = false;
           scope.data = 'Warning! '+result.data.message;
         });
       }
@@ -277,6 +286,8 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
 
       Api.createRecurringCharges(user_id, org_id, freq, start_date, amount).then(function(result) {
         console.log(result.data);
+        scope.showMsg = true;
+        if(result.data.message === 'Success') scope.data = "Saved successfully.";
         // scope.settingList = result.data.result;
       }, function(result){
         console.log(result);

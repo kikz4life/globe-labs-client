@@ -1,17 +1,19 @@
 <div class="main-wrap" ng-controller="OrganizationCtrl">
 	<div global-message="error" ng-show="showError"></div>
+	<div global-message="success" ng-show="showMsg"></div>
 	<div ng-init="getDetail(params.orgId)">		
 		<div class="org-wrap">
 			<h3>{{orgDetail.name}}</h3>
-			<div class="vid pull-left"></div>
-			<div class="org-info pull-left">
+			<div class="vid pull-left" ng-bind-html="trustedVideo" ng-show="isVideo"></div>
+			<img ng-src="{{orgDetail.image}}" class="vid pull-left" ng-show="!isVideo">
+			<div class="org-info">
 				<h3> <b>30</b><br />Donors </h3>
 				<h3> <b>{{orgDetail.total_funds}}</b><br />Total Funds</h3>
 				<h3> <b>10</b><br />Beneficiaries </h3>
 				<div ng-controller="FacebookCtrl" class="padding-top-10">
 				    <a ng-hide="hasGlobeAccessToken" href="http://developer.globelabs.com.ph/dialog/oauth?app_id=gBKdrHRyMMeCp5Tr7zcMnGC8kKqkHagB" class="btn btn-primary btn-donate">Subscribe Mobile Numbere</a>
 				</div>
-				<form role="form" name="myForm" ng-submit="donateNow()" class="donate-area" ng-show="hasGlobeAccessToken">
+				<form role="form" name="myForm" ng-submit="donateNow()" class="donate-area height-90" ng-show="hasGlobeAccessToken">
 					<label>Choose amount:</label><br>
 					<div>
 						<input type="radio" ng-model="tarrif_rate" value="0">
@@ -21,7 +23,8 @@
 						<input type="radio" ng-model="tarrif_rate" value="1">
 						<label for="one">1</label>
 					</div>
-					<input type="submit" class="btn btn-info pull-right" value="Donate Now">
+					<div class="loading-wrapper" loader></div>
+					<input ng-hide="loading" type="submit" class="btn btn-info pull-right" value="Donate Now">
 				</form>
 			</div>
 			<br>

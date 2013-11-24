@@ -43,4 +43,15 @@ angular.module('myApp.directives', ['LocalStorageModule'])
         }
       }
     }
+  })
+  .directive('loader', function() {
+    return {
+      restrict: 'A',
+      template: '<div class="loading pull-right" ng-show="loading">' +
+                  '<img src="img/ajax-loader.gif" class="animated rotateIn" />' +
+                '</div>',
+      link: function(scope, element, attrs) {
+        console.log('loader');
+      }
+    }
   });
