@@ -21,7 +21,7 @@ a { cursor: pointer;}
 .menus li .btn-danger {margin-top:5px;}
 .brand-logo {
   width:180px; height:40px;
-  margin-top:5px;
+  margin:5px 0;
   background-image:url(../img/logo.png);
   background-size: 180px 40px;
 }
