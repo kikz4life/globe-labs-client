@@ -77,6 +77,8 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
 	        Api.createGlobeAccessToken(code, creds.user.id).then(function(result) {
             console.log('createGlobeAccessToken');
             session.add("userCreds", result.data.result);
+            creds = Api.getUserCredentials();
+            scope.hasGlobeAccessToken = creds.user.has_globe_access_token;
             // rootScope.$broadcast("event:loggedIn");
     				console.log(result);
     			}, function(result) {
@@ -153,6 +155,7 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
         updateLoginStatus(updateApiMe);
         session.clearAll();
         rootScope.$broadcast("event:loggedOut");
+        location.path('/home');
       });
     };
 
