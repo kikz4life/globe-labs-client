@@ -2,27 +2,12 @@
 	<h3>List of Organizations You May Want to Help</h3>
 	<p>Good News! You can now be helpful and get involved in our community easily by donating to your favorite NGO using your Globe prepaid or postpaid load. Just subscribe your Globe number in the donation page. </p>
 
-	<!-- <div class="wrap-thumb">		
-		<div class="wrap-pic"></div>
-		<h5><b>GMA Foundation</b></h5>
-		<p class="smalltxt">Ang GMA Kapuso Foundation ay magsasagawa ng malawakang Operation Bayanihan (relief operation) upang damayan ang mga kababayan nating nasalanta ng Super Typhoon Yolanda.</p>
-		<p><i class="fa fa-map-marker"></i> Quezon City, Metro Manila</p>
-		<div class="wrap-rate">
-			<div class="progress progress-striped">
-			  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-			    <span class="sr-only">20% Complete</span>
-			  </div>
-			</div>
-		</div>
-		<p><i class="fa fa-heart-o"></i> <b>Donations: </b><span>125,000php</span></p>
-		<a class="wrap-link"></a>
-	</div> -->
 
 	<div class="wrap-thumb pull-left" ng-repeat="list in orgLists">		
 		<img ng-src="{{list.image}}" class="wrap-pic">
 		<h5><b>{{list.name}}</b></h5>
 		<p class="smalltxt">{{list.short_description}}</p>
-		<p><i class="fa fa-map-marker"></i> Quezon City, Metro Manila</p>
+		<p><i class="fa fa-map-marker"></i>{{list.state_or_region}}</p>
 		<p><i class="fa fa-heart-o"></i> <b>Donations: </b><span>{{list.total_funds}}php</span></p>
 		
 		<!-- <a ng-hide="hasGlobeAccessToken" href="http://developer.globelabs.com.ph/dialog/oauth?app_id=gBKdrHRyMMeCp5Tr7zcMnGC8kKqkHagB" ng-click="storeOrgId(list.id)" class="btn btn-primary btn-donate">Donate</a> -->
