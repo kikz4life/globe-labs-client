@@ -36,8 +36,8 @@
           <ul class="nav navbar-nav pull-right menus" ng-controller="FacebookCtrl">
             <li>
               <button class="btn btn-primary" ng-click="login()" ng-disabled="loginStatus.status == 'connected'" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>
-     &nbsp; 
-    <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button>
+              &nbsp; 
+              <button class="btn btn-danger" ng-click="logout()" ng-disabled="!loginStatus || loginStatus.status != 'connected'" ng-show="loginStatus.status == 'connected'">Logout</button>
             </li>
           </ul>
           <ul class="nav navbar-nav pull-right menus" ng-controller="headerCtrl" ng-show="isLoggedIn">
