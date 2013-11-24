@@ -97,20 +97,26 @@ angular.module('myApp.controllers', ['LocalStorageModule']).
     };
         
     scope.donateNow = function() {
+      var r = confirm("Do you want to donate?");
       var user_id = creds.user.id;
       var org_id = scope.params.orgId;
       // var benif_id = ;
       var amt = scope.tarrif_rate;
-
-      Api.postCharges(user_id, org_id, amt).then(function(result){
-        console.log(result.data);
-        rootScope.$broadcast("event:donated", amt);
-        
-      }, function(result) {
-        console.log(result.data);
-        scope.showError = true;
-        scope.data = 'Warning! '+result.data.message;
-      })
+      
+      if (r==true){
+        Api.postCharges(user_id, org_id, amt).then(function(result){
+          console.log(result.data);
+          rootScope.$broadcast("event:donated", amt);
+          
+        }, function(result) {
+          console.log(result.data);
+          scope.showError = true;
+          scope.data = 'Warning! '+result.data.message;
+        });
+      }
+      else{
+        return false;
+      }
     };
 
     scope.$on("event:donated", function(event, newValue, oldValue) {
